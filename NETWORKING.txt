@@ -1,0 +1,447 @@
+-> Modelling system breaking communication in involves parameter
+ex: we are making a phone call so paramters invloves are:- 
+Meassage (concept)
+English (Language)
+Vibration (Link)
+Air (Physical) 
+* at air and vibration level air convert the sound into vibration which then
+converted into electrical signals through microphone.
+ 			
+			###############
+			## OSI MODEL ##
+			###############
+
+-> OSI stands for - Open System Interconnect
+-> we are connected to a router and router is connected to an internet and
+at backend of internet we have lots or bunch of server.
+* say if we want to search for particular webpage say https://www.pluralsight.com
+so on my pc i type the link which bssically sends the msg across the internet and
+go to plural site webserver and then it pulls the webpage and it then transfer to my pc
+** so what are the components that allows this to happen.
+- routers that basicaly connect pc to internet and wireless cables that connect to webserver
+cables basically we used is TWISTED PAIR (bunch of copper cables) or optical 
+cables (wireless copper cables) and they are contstucted at PHYSICAL LAYER.
+
+So basically first layer of OSI model is PHYSICAL LAYER. 
+
+-> we need protocols to move data from one end of traffic to other end of the traffic
+between same network segments say pc to router or router to modem and so on.
+* and internet is also bound to set protocols that transfer data from one end to other
+* so the network segment can most of them be ethernet (protocols)
+* ethernet protocols allows to transfer data from pc to router and router to modem
+* DOCSIS-3 is a protocol that allows to transfer data from modem to internet
+- DOCSIS-3 stands for Data Over Serivce Interface Specification which are being 
+used by ISPs out there in world. (ethernet is mostly allows used nowadays
+that allows faster communication upto 100 gigabit)
+* we have other protocols as well which include ATM, SONET, etc. 
+
+** So the protocols that we use are part of DATA LINK LAYER.
+
+Therefore second layer of OSI model is DATA LINK LAYER.
+
+-> The protocols works in data link layer are only operatable with in particular
+network segement. So each protocols involves in data exchange operate in that particular segment.
+* so in our case we require direct communication between pc to webserver
+not just within particular segment.  
+* So in order to manage that in the next layer of OSI model we will be using
+IP ADDRESSING to allow us send messages to longer distances. 
+* basically Ipaddress is just like home address which consist of street name, city, zipcode, country, etc
+* Ipaddress provides an unique address to all the devices on the internet 
+* We have Iprouting which allows us to send messages from one unique address to other unique
+address on the internet
+* Ipaddressing basically allows to get messages from one end to other end
+
+** we have seen in data link layer ethernet which works in exchange of data between device to device
+** but ip addressing, ip routing and ethernet works very closely together to get
+messages from one side of network to other side of network. This is called as 
+NETWORK LAYER.
+
+The third layer of OSI model i.e. is NETWORK LAYER.
+
+-> Next layer of OSI model 
+* before asking the sender to send the data (say website) we need some kind of
+session between client and the server. 
+* example: before calling we have to wait and at that time the ring goes to other side
+once the phone call is picked now we can transfer our msg.
+* In the same way we need a protocol at Fourth level which is called 
+Transmission Control Protocol. (TCP) this layer is called as Transport Layer
+
+SO fourth layer is TRANSPORT LAYER (TCP Protocol)
+
+-> Now understanding the concept of website reaching the client from webserver
+* so to do that we need a protocol to process the data located on server side
+which is basically done HTTP Protocol or HTTPS (which is basicallly a formatting of
+data how the data should be presented on web i.e. how to present data on web.
+* So basically a HTTP Hypertext is a file like a microsoft word document that transfer file to client
+from server side and that layer is called as Application Layer
+
+SO seventh Layer of OSI model is APPLICATION LAYER.
+
+** we haven't discussed for fifth and sixth since they are not much impt.
+they are used but rarely.
+lets discuss them now.
+
+-> 6th and 5th layer
+
+6th layer - Presentation Layer (encoding in ASCII values conversion to hexadecimal)
+5th layer - Session Layer (contains Citrix ICA protocols that operates at session layer
+regarding firewall, troubleshooting, etc but this actually operates at Application
+layer although the rules or protocols are written at SESSION LAYER.
+
+____________________________________________________________________________________________________________
+
+				##############################
+				## PROTOCOLS & PORT NUMBERS ##
+				##############################
+
+
+-> APPLICATION LAYER (Transferring DATA)
+* ex: we are watching video on http://www.pluralsight.com and we are using 
+a protocol HTTP at application layer to do this or HTTPs.
+* so basically http is a type of file format which read by some software on
+client side and the software are just basically browsers like chrome, firefox,
+microsoft EDGE, etc.
+* and the same way server are also running some software to run server, and 
+to run we the server we are using apache software and we have nginx for running
+large website deployments and can be run on UNIX. 
+
+*** something more important to note that:- 
+for every protocol running on layer 7 that is basically application layer,
+has a layer 4 (Transport Layer) component which is called PORT NUMBER. 
+- PORT NUMBER uniquely identifies the layer-7 protocol being used at layer 4
+ 
+=> Another file Transfer Protocol ( to transfer file from client to server or vice versa)
+*  FTP - File transfer protocol (port number - 20 or 21)
+  sFTP - secure File transfer Protocol  (port number- 22 with port matching to SSH protocol)
+  TFTP - Trivial File Transfer Protocol (used to transfer tiny files over two or multiple devices
+without worrying about authentication or having lots of issues or files) (port number - 69)
+
+* FTP or sFTP require username or authentication to transfer files  	 
+  SMB - (runs on port number 445 stands for Server Message Blocks) 
+
+---------------Demonstrating FTP & SMB---------------------------------
+
+-> go to network setting and right click on network 
+-> click on map network drive and specify the path and drag som files from other location to this specified location
+* FileZilla is FTP client on firefox
+-------------------------------------------------------------------------
+
+=> Next protocol is for transferring Email
+* we have 3 protocols for email
+  POP3 - Post Office Protocol (Port Number - 110/995)
+  IMAP - Internet Message Access Protocol (Port Number - 143/993)
+  SMTP - Simple Mail Transfer Protocol (Port Number - 25/465)
+* two are used by the client to retieve mail from server, POP3 & IMAP explicitly
+take messages that live currently on server may be Gmail or may be our company 
+server 
+* SMTP protocol takes a message that we create on client email application
+and it uses it to send that email to whomsover we are trying to email. 
+
+---------------Demonstrating SMTP,POP3 & IMAP--------------------------------- 
+
+* We use firefox thunderbird which is a email client
+----------------------------------------------------------------------------------
+
+=> Authentication 
+* LDAP - Lightweight Directory Access Protocol (Port number - 389/636)
+
+=> Network services 
+* DHCP - Dynamic Host Control Protocol (Hands on IpAddress to any device which 
+is connected to any internet. 
+
+---------------Demonstrating DHCP--------------------------------- 
+
+* ifconfig 
+* dhclient -v enp0s3
+- on windows
+* ipconfig or ipconfig /release or ipconfig /renew
+------------------------------------------------------------------------------------
+
+=> Domain Name Server (DNS)
+* allows us to communicate with name of device 
+* client send name to DNS server and ask for the ipddress of that domain name
+say www.google.com will go to DNS server (8.8.8.8) ask to give the ipaddress of 
+google.com and then send it back to client and then client goes to that ip and ask to give webpage available
+
+------------------------Demonstrating DNS--------------------------------- 
+
+* using nslookup cmd to examine the DNS
+-> ifconfig /all
+-> nslookup <google.com>
+-> nslookup (press enter) - cmd will prompt just enter <server 8.8.8.8>
+			  - now write google.com
+			  - now write facebook.com
+ 			  - pluralsight.com 
+--------------------------------------------------------------------------------------------------
+
+=> Network Time Protocol
+* to automatically configure time on our Operating System NTP 
+* UTC
+
+=> Network Management Protocols
+* Telnet - (Port number - 23) 
+   SSH   - (Port number - 22)
+---------------Demonstrating SSH--------------------------------- 
+-----------------------------------------------------------------
+
+=> SNMP (Simple Network Management Protocol) 
+* tells the status of ports or interfaces are up or down, whats the temparature of device
+(Walk the Tree)
+* SNMP trap used to send when the router or switches are too hot 
+
+=> RDP (Remote Desktop Protocol - Port number - 3389)
+* puts the ipaddress of the server into application and then shares the screen
+of the server onto our workstation and allow us to remotely 
+
+=> Audio/Visual Protocol
+* H.323 - (Port - 1720) typically used for audiovisual communication 
+and typically used for videoconferencing 
+* SIP - (port - 5060/5061) Session Initiation Protocol for voice call between phones or server
+__________________________________________________________________________________________________________________
+
+				#################
+				###  TCP/UDP  ###
+				#################
+
+* supppose on person wants to talk to other person via telephone he just took
+up the number and he can't talk directly he need to follow certain steps.
+pick the telephone -> dial number -> wait for tone to be dialled -> 
+telephone will ring -> wait for person to pick up the call -> a conversational
+msg(hi/hello) so a session is being established between them.
+
+-> TCP (3-way Handshake)
+*  once we have known the ipaddress of webserver we need to send a msg syn
+(synchronized message) that syn message will then change a state on the devices
+recognizing that device is waiting for the reply, then the server will send 
+a reply msg called SYN-ACK (acknowledgement of synchronized message) and after that
+the client or device will send a message ACK. After that a session is being 
+established.
+* So these 3 steps are to establish connection between any webserver:- 
+SYN
+SYN-ACK
+ACK
+* Once the connection is established now we can use any protocols like HTTP
+or HTTPs to send the messages. 
+** So till now the Layer-4 protocol is completed now we will be using the 
+layer-7 protocol to transfer the web data.
+
+
+-> 4-way Disconnect
+* FIN msg is sent by one device which uderstand for Finish		
+* and other deivce sends the FIN-ACK msg
+* The device will again reply with FIN msg
+* And finally the end side will reply with FIN-ACK which means that now we
+no longer need send any data (HTTP request) 
+
+** we can also done using a TCP RESET (RST) reset is just liking hanging up a phone
+  
+-> UDP (User Datagram protocol)
+* No 3-way handshake, no reliable communication, no sequence number, no ack number,
+used for efficient small data transfer.
+
+-> Port Numbers
+
+* Server Port Numbers (registered port number) or Client Port Numbers (Ephimeral Port Number)
+	Server Port Nmuber - 0-1023 (well known) 1024-49151 (Registered)
+	Ephimeral Port Number - 49152 - 65535
+* well known include Http, FTP, SSH, Telnet, SMTP,etc and while registered may
+be official or unofficial like H.323, SIP, etc.
+
+-> Protocol Dependencies 
+
+ ____________________________________________________________________________
+| HTTP | HTTPs | FTP | SFTP | SMB | POP3 | IMAP | SMTP | LDAPs | LDAP | TFTP | - Application layer 
+|______|_______|_____|______|_____|______|______|______|_______|______|______|
+|  80  |  443  |20,21|  22  | 445 | 110  |  143 |  25  |  636  | 389  |  69  | 
+|______|_______|_____|______|_____|______|______|______|_______|______|______|
+|				TCP			       |TCPUDP|  UDP | - Transport layer
+|______________________________________________________________|______|______|
+|				IP					     | - Network layer
+|____________________________________________________________________________|
+
+ _____________________________________________________________
+|Telnet| SSH | RDP | DNS  | SIP | H.323 | SNMP | DHCP |  NTP  | 
+|______|_____|_____|______|_____|_______|______|______|_______|
+|  23  |  22 |3389 |  53  |5060 | 1719  |  161 |68,69 |  123  | 
+|______|_____|_____|______|_____|_______|______|______|_______|
+|	TCP	   |	       TCP/UDP         |      UDP     |
+|__________________|___________________________|______________|
+|				IP			      |		
+|_____________________________________________________________|
+
+________________________________________________________________________________________________________
+
+-> Classless Ipaddressing & Classfull Ipaddressing
+-> CIDR Notations - (Classless Inter Domain Routing) [192.168.43.99/24]
+-> loopback ip - 127.0.0.1
+-> ping - packet internet group
+-> network ip address (all binary 0's in host portion <related to netmask)
+-> host ip address (addresses between all network ip address and broadcast address)
+-> broadcast ip address (all binary 1's in host portion)
+* used to find all devices on the same network (broadcast ip)
+
+-> private ip range => 10.0.0.0 - 10.255.255.255, 172.16.0.0 - 172.31.255.255, 192.168.0.0 - 192.168.255.255
+
+				############	
+-> 				### IPv6 ###
+				############
+
+-> bit - 0,1
+   nibble -  4 bits 
+   bytes  - 8 bits
+   hextet - 16 bits (written in 4 hexadecimal as 20A4,etc)
+* hexadecimal notation - 0x
+* ipv4 is broken into 4 octets and each octet is 8 bit long so in binary 
+ipv4 is represented in 32 bits.
+* ipv6 is longer than ipv4 4 times which is basically 8 hextets, 32 nibbles = 128 bits.
+* ipv6 is divided into two portion 64 bit network portion and 64 bit interface
+identifier
+* in ipv6 we can remove all the leading zeros on each hextet for example:
+ _______________________________________    ____________________________
+|2001:0DB8:0002:008D:0000:0000:00A5:52F5|->|   2001:DB8:8D:0:0:A5:52F5  |
+|___________________|___________________|  |______________|_____________|
+|  network portion  |internet identifier|  |networkportion|internetiden.|
+|___________________|___________________|->|______________|_____________|
+
+* we can remove double zeros as :: then the ip will become like this:
+	2001:DB8:8D::A5:52F5
+* with in interface identifiers we have 2^64 bits addresses which is billions of billions of addesses
+** no private ip addressing in ipv6
+
+** Dual stack if we have both ipv4 and ipv6 running
+* first address in ipv6 is called unicast address which is global and seocnd
+one is local ip which is used to work
+
+* ipv6 Address Acquisition - SLAAC (Stateless Address Auto Configuration)
+
+__________________________________________________________________________________________________________
+
+			################
+			### ETHERNET ###
+			################
+
+-> basically works at DATA LINK LAYER
+-> switches are used to connect devices all together
+-> CSMA/CD (Carrier Sense Multiple Access with Collision Detection)
+*  example: in bus topology suppose a pc want to sends a msg to one of the 
+other pc, so before sending the msg the device first sends an elctrical signal
+(pulse of +5 volts or -5 volts) they further creates 1's and 0's on and off
+When they are communicating the others pc in topology will hear only their signals
+and when other pc wants to send something so it has to wait because other device are 
+communicating.
+* when the two devices sends a signal and the total signal becomes (+10 volts)
+a collision occurs which means that two devices are simultaneously communicating
+and other pc can't hold the signal because it exceeds the limit so it is callled collision
+* at the time the communication will stop and back off and wait for random
+period of time then start listening to the signal and then ready to send the data
+* COllisoin Domain - is a group of networked devices that will simultaneously
+detect a voltage spike (it is just a multiple devices sending data at same time)
+
+-> DUPLEX
+
+- Half duplex = one device communicate at a time (walkie talkie)
+- Full duplex = two device communicate at a time (telephone)
+
+* ethernet uses a frame, which is used to send data from one device to one another
+* Frame - a chunk of data with a data link layer header (ethernet header
+contains destination MAC address and source MAC address, type, data packet and FCS (CRC)) 
+(MAC address is basically hardware address contains Manufacture ID and Serial Number)
+- CRC (Cyclic Redundancy Check) or (Frame Check Sequence) 
+
+* switches keeps the track of mac address
+
+_______________________________________________________________________________
+
+-> VLAN - (Spanning tree protocol) used to combine two broadcast switches
+* worked using tagged vlan number over merge switches
+
+-> PoE - protocols used 802.3at (15.2 watts), 802.3af, (25.3 watts) used to supply 
+power through ethernet cables rather than providing externally.
+_____________________________________________________________________________________
+
+				################
+				## IP ROUTING ##
+				################
+
+-> happens at NETWORK LAYER
+* routers has atleast two intefaces on them by default means have two ports
+that can plug in cable in order two build data link layer.
+* ICMP protocol works in ip packet used by ping command which conains src ip
+and dest ip, ttl (time to live) and other paramters 
+* ttl is basically determining the number of routers the packet has travelled.
+when ttl values hit 0 then it is then thrown away at layer 3
+
+-> ARP (Address Resolution Protocol) - pure layer 2 protocol
+* it is used to retrieve layer 2 mac address using layer 3 address 
+* it done by maintaining an ARP table or cache, the ping cmd send msg to destination
+ip, the destination will check the headers and see the destination ip and say 
+yes this msg is for me and it will then see that it is an ICMP packet and then revert back to
+source by deriving mac address of source ip.
+* ARP table is not a mac address table, mac address table exist on switch
+and has nothing to do with ip address.
+* So basically ARP is a bridge between layer 2 and layer 3
+------------------------------------------------------------------------------
+
+-> examine ARP 
+* ipconfig 
+* arp -a		// cmd on window cli
+* you will not see the ip address if you didnt ping once you have pinged
+then ip will be shown in arp -a and will remain last for apx 90 seconds.
+
+-> Portocols in IP Routing:-
+   RIP - Routing Internet Protocol                   (distance vector protocol)
+ EIGRP - Enhanced Interior Gateway Routing Protocol  (distance vector protocol)
+  OSPF - Open Shortest Path First (Link State Protocol)
+   BGP - Border Gateway Protocol (Hybrid)
+____________________________________________________________________________________
+
+-> NETWORK ADDRESS TRANSLATION (NAT)
+*  Suppose a pc in private network (ip 10.0.0.10) send a msg to website (ip 52.24.195.195)
+via router internet (ip 203.0.11.6/30) so what happen is when the msg is send
+the msg at router goes and make the destination ip of website while the source ip get is of internet
+and then msg reaches the site, once the msg is reached the destination ip and source ip are interchanged
+inorder to respond back (i.e. now dest ip get 203.0.113.6 and src ip become of site 52.24.195.195)
+And once the msg is recieved at router then router consult to NAT and throws away the destination ip
+i.e of internet ip 203.0.113.6 and add the pc ip 10.0.0.10 and forward it to pc the msg
+* so in this way we are using the private ip for communication. SO type of translation is using
+here is Port Address Translation which work with Layer 3 and Layer 4. 
+
+-> PORT FORWARDING
+* Configuring router explicitly to watch for traffic with these specific address
+when these packets comes in router it do special translation that is mapping of ip with specific ports
+
+-> Access Control List 
+* way of selecting traffic to use in other process and filtering the data packets
+
+-> Shaping Traffic 
+* gives priority to traffic over some other traffics  
+* implemented by Quality of Services (QoS) Diffserv - each device we are going to reprioritize the traffic 
+* Class of Service (Cos) type of identifier 
+
+-> DHCP (Dynamic Host Configuration Protocol)
+* Application layer protocol allows automatic configuration of ip address
+* after providing ip the DHCP server creates a DHCP binding which is basically maintaining the database saying that 
+for a mac address it has ip address this and mask is this , dns and gateway. 
+* dhcp lease which renew ip for every 3.5 days
+
+-> DNS Heirarchy (Domain Name Server)
+
+examle:- www.pluralsight.com
+* Top Level Domain (TLD) ex: .com, .org, .edu, .net, .gov, .in, .uk, etc
+TLD denote a general category 
+* Second Level Domain - pluralsight , google.com, cisco.com, wikipedia.org, etc
+Second level domain is basically a company name 
+* Third Level Domain - which can be hostname of device here in example www
+
+* the idea of heirarchy is to identify the ip address 
+we have forward DNS Lookup to get the ip of domain and other we have
+Reverse DNS Lookup to get the domain of ip
+
+* DNS Record types to keep the track of ips
+NS - Identifies Authoritative Name Server
+MX - Mail Exchange Record
+CNAME - Conanical Name Record
+PTR - Pointer Record
+SRV - Service Record
+TXT - Text Record for miscellaneous use
+	
