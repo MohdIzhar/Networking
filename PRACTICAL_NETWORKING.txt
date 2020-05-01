@@ -1,0 +1,318 @@
+-> INTERNETWORKING
+
+* It is a practice of connecting two or more local area networks LANs
+together using a gateway or router.
+* It refer how organization uses internal network
+
+- Focus on your role
+
+Support Administrator :- Recieve problems calls and tickets
+			 Diagnose, troubleshoot and resolve
+			 Escalate to the next level of support tier
+			* diagnosis and troubleshooting requires what tools to use and when to use them
+
+-> SCENARIO 
+
+* You are a Network Support Administrator for Netluxia (company)
+* You recieve trouble tickets from employess who have network issues
+* To solve the issue ypu have access to network topology of organization network
+which is connecteed to Headquarter and Branch Office
+_________________________________________________________________________________________________________
+
+* Networking is Complex but no necessarily difficult
+
+END USER DEVICE -> LOCAL AREA NETWORK (LAN) -> ROUTER/GATEWAY -> FIREWALL
+
+-> LANs 
+		
+* Suppose a user Paul is working in Headquarter and have some information
+of networking in his system.
+
+IPADDRESS: 10.10.1.13
+NETMASK:255.255.255.0 (/24)
+DEFAULT GATEWAY: 10.10.1.254  (SW1)
+DEFAULT DNS SERVER: 10.10.0.11 (DNS1)
+
+* now paul connects to website www.pluralsight.com
+It will first go to the Default DNS SERVER located at Headquarter which resolve into Ipaddress
+Now he knows the ipaddress of website which is 206.71.69.226 but it does not know anything about it
+
+* now using the NETMASK he knows the Network address :-
+Network address - 10.10.1.0/24
+Ipaddress - 10.10.1.13
+Netmask - 255.255.255.0
+
+* now to connect to other networks default gateway is required which is in Paul's case is
+GATEWAY - 10.10.1.254		// designed by architect or adiministrator
+
+* Router is used when referring to a physical device ex: what router is switch port 7 connected to
+* Gateway is used when referring to logical interface ex: what is the Paul's computer gateway 
+
+-> ETHERNET FRAME
+
+* contains SOURCE IP & DESTINATION IP
+
+     Source				Destination
+IP - 10.10.1.13			   IP - 206.71.69.226
+MAC - 08-00-27-93-50-06		  MAC - AA-BB-CC-80-02-00 (Media Access Controller)
+
+* now from where the mac address comes from, it comes from the DEFAULT GATEWAY
+* MAC address allows us to communicate to other devices in the same LAN or network
+* to get the MAC address Pauls computer sends the ARP request to LAN and ask who has the
+  ip address 10.10.0.254 that request will hit the switch from which pauls computer is connected to say switch2
+* Now the switch 2 broadcast the ARP request out the port that switch 1 is connected to and switch 1 
+  replies to switch 2 that its Pual's computer with its own MAC address.
+* Now the Paul has the gateway stored in ARP tables along with gateway.
+* Now the pauls computer sends the packet and goes to switch 1 which perform same operation as we discussed with switch 2
+which get destination MAC from router it is connected and then passes to special device called FIREWALLS
+
+-> FIREWALLS
+
+* it basically blocks and filter traffics between network and perform ip routing function
+* Firewalls perform NAT operation which is generally managed by SECURITY team of organization
+* once the packet is reached to firewall how it will going to know where to transfer packet
+  then it seems to transfer packet to Internet adnd how it will going to do.
+
+-> ISP (Internet Service Provider) 
+
+* CPE (customer premises equipment) router which is owned, operated and provided
+by an ISP which physically connects to customer's network
+* in each side source and destination side we have firewall acting and between them
+we have ISP (ISP B and ISP A) each ISP on either side which operated and sends packet to each other
+
+_________________________________________________________________________________________________________________________________________
+
+			#######################
+			# NETWORK METHODOLOGY #
+			#######################
+
+
+-> Troubleshooting consist of 4 Steps:-
+
+- defining the problem 
+- Isolating the network layer
+- Isolate the scope
+- Isolate the cause
+
+
+=> Defining the Problem
+
+* confirm the problem still exist
+* bridging the gap of problem which means what the actual problem is and what user has told
+* confirm and clarify
+
+=> Isolating the Network Layer
+
+* which means isolate that layer of OSI model which is encountering the problem
+  since each layer is dependent on each other suppose if physical layr goes down,
+  data link layer will not work, and if data link layer goes down ip routing will not work
+  and ip routing will not work the application layer will also not work so it goes on dependency.
+
+1) starting with PHYSICAL LAYER
+
+- is network cable plugged in ?
+- does the network card interface have a link light ?
+
+2) Establishing Data Link (Layer2) Connectivity
+
+- Is the IP and Netmask configured properly ? (ifconfig or ipconfig)
+- Troubleshooting requires an Ip address to be configured
+- ping with broadcast ip of network it falls in  	// cmd
+- arp -a						// cmd
+* if we dont get the reply in arp this means that we have problem in Data Link layer2
+- is the default gateway reachable ? Can we ping it, does it respond to ARP request
+
+3) Establishing Network Connectivity
+
+- is the destination reachable?
+- can we ping the pluralsight.com? 
+- How far the packet get
+- tracert  				// cmd
+- pathping 				// cmd
+
+4) Establishing Transport Connectivity
+
+- is the correct destination port being used?
+- TCP/80 (HTTP) and TCP/443 (HTTPS)
+- telnet		// cmd
+- nmap			// cmd
+* if these cmd fails it means firewall is stoping the services and port is unreachable
+
+5,6,7) layer 5,6,7 generally dont come under practical networking and network specific issue
+
+=> Isolating the scope of problem
+
+* prioritize your effort 	// respond according to problem dont delay 
+* conversation with user and ask others if they are having same issues or not
+
+=> Isolating the cause
+
+* requires techincal knowledge, deduce the cause from the symptoms
+* cause falls into two categories - 
+i) something changed
+ii) nothing changed 
+
+* good diagnostic information is valueable
+* come up with your own theory 
+
+_________________________________________________________________________________________________________
+
+-> Network Latency
+
+* network is slow
+* difficult to troubleshoot even for network engineer
+
+__________________________________________________________________________________________________________
+
+				 ________
+				| PART-2 |
+				|________|
+
+# Troubleshooting Methodology
+
+-> identify the problems
+
+* gather the informations
+* identify the symptoms
+* change management
+* duplicate problems 
+* multiple problems
+
+-> Establish a theory Cause
+
+* Looking at different layer of OSI Model whether from layer7 to layer 1 or vice versa
+  or it is better if you should move from Network layer from this you can easily identify 
+  wether to move up or down the layer. (which can be done using the Ping cmd)
+
+-> Test the theory 
+
+* avoid breaking the network
+
+-> Establish plan of action
+
+-> Implement a solution
+
+-> Document a solution 
+
+-----------------------------------------------------------------------
+
+# Tools - 
+
+* harwdare and software tools
+* Hardware tools include - cooper, fibre optics, Spectrum Analyzer (for wireless issue)
+* Software tools include - Packet Sniffer (Wireshark), Bandwidth Speed Test, Port Scanner
+
+- WIRESHARK DEMO
+
+* select the adapter 
+* go to browser (incognito mode to avoid cached data) and visit the website - www.veronicasplantnursery.com
+* filter - frame contains veronica
+* click on the packet captured with protocol DNS and then go to below click on the Domain Name Server
+  then click on answers to find its IP 
+* then again go to filter - ip.addr == <ip address you find from Domain Name Server>
+* click on any packet which shows port and then right click on packet choose option follow
+  then select TCP stream then it will show you the exchangede data
+
+- BANDWIDTH SPEED TEST (using iperf)
+
+* download iperf2 from internet
+* go to window cmd prompt cd c:/iperf		// location of your iperf
+* iperf -s 					// to enable iperf server 
+* iperf -c 10.128.50.110 -i 1			// to enable client and pass the server IP
+* go to putty 					// switch on to switch 
+  show mac address
+
+- NMAP
+
+* scanning a remote device
+* dont use multiple times for testing particular site else it will be considering that someone is 
+  stealing the data
+
+-------------------DEMO------------------------------------------------
+
+-> WINDOWS UTILITIES
+
+- ipconfig 
+- ipconfig /all
+- ping 8.8.8.8				// pinging google server to check the network connectivity issue
+- tracert 8.8.8.8			// shows all the routers between soruce and the destination
+* problem with tracert is some routers dont respond to it // help to identify which router is facing issue but this utiity is slow
+- pathping 8.8.8.8			
+- nslookup www.veronicasplantnursery.com// allow us to look for ip address for URL
+* it is forward lookup url to ip and in the same way we can go for reverse lookup
+ip to url if the site is configured
+- nslookup IPaddress
+- netsat -ano 				// to check port opens on device
+- arp -a				// to look at arp table
+- arp -d *				// to delete all arp table entries but this cmd will run as admin
+
+-> LINUX UTILITIES
+
+- ifconfig				// similar to ipconfig
+- dig	google.com			// similar to ns lookup
+- route	-n				// gateway
+- iptables				// firewall
+- tcpdump				// packet capturing
+- iftop -i enp0s3			// to check bandwidth	
+- nethogs
+- ping 8.8.8.8
+- nslookup
+- nmap
+- dig google.com MX			// to check mailing record
+- dig cnn.com MX
+- ipatables -L					// list policy for firewall configure in device but run it as admin
+- iptables -A INPUT -p tcp --dport 21 -j DROP	// denying protocol 21 msg which is FTP protocol
+- tcpdump -i enp0s3 -n 				// to capture incoming and outgoing packet from system to dest.
+- tracepath
+
+------------------------------------------------------------------------------------------------------------------
+
+
+-> WIRED NETWORK TROUBLESHOOTING
+
+* symptoms - no connection, Latency, Jitter
+* Cabling issues - damaged cable, bent pins, incorrect pinout, incorrect cable type, open/short
+* Attenuation, EMI interferance 	 
+* Layer 2 issues - switches not connected , VLAN mismatch 
+
+-> WIRELESS NETWORK TROUBLESHOOTING
+
+* Buildings - effect wireless network like reflection, absorption, refraction of wireless network
+* Interference of microwaves 
+* capacity over access point
+* channel overlap
+* attenuation - distance between device and wifi
+* configuration issues (worng SSID) 
+
+-> TROUBLESHOOTING NETWORK SERVICES
+
+# Troubleshooting IP Configuration Issues
+
+IPADDRESS
+NETMASK
+GATEWAY
+DNS
+
+# Troubleshooting the DHCP
+
+* get the ip automatically rather than assigning on your own
+
+# Troubleshooting the service
+
+ping <ipaddress>		// layer3 is working if it reply
+now to check whether layer4 is working or not
+telnet (use to confirm )
+
+# Troubleshooting the security
+
+* invalid certificates or others i.e. firewall 
+		 
+
+
+ 
+   
+
+
+
+ 
+
