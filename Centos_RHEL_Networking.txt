@@ -1,0 +1,107 @@
+-> iptables -nvL
+-> iptables -A INPUT -i lo -j ACCEPT
+-> iptables -A INPUT -m conntrack --ctstate ESTABLISHED, RELATED -j ACCEPT
+-> iptables -A INPUT -p tcp --dport 22 -j ACCEPT
+-> iptables -L
+-> iptables-save > fwon
+-> iptables-restore < fwoff
+-> iptables -L
+-> iptables-restore < fwon
+-> iptables -L
+-> vi fwon
+   -A INPUT -j DROP 					// add this line
+   -A FORWARD -j DROP 					// to stop the forwarding
+
+-> yum install iptables-services			// setting up the iptables services
+-> vi /etc/sysconfig/iptables				// you will see some configured setting
+-> vi /etc/sysconfig/iptables-config
+   make the line - IPTABLES_SAVE_ON_STOP="yes"		
+                 - IPTABLES_SAVE_ON_RESTART="yes"
+-> systemctl stop firewalld
+-> systemctl enable iptables
+-> systemctl start iptables
+-> iptables -L
+-> iptables -I INPUT 1 -p tcp --dport 80 -j ACCEPT	// adding rule
+-> systemctl restart iptables				// restarting service after adding new rule
+
+-------------------------------------------------------------------------------------------
+
+-> ip route show			// getting route info
+-> route				// to get route table
+-> netstat -r
+-> netstat -rn
+-> ip r
+-> ping Ip
+* if fails due to some reason check :-
+-> cat /proc/sys/net/ipv4/ip_forward 	// if output 0 it means it is disabled
+-> vi /etc/sysctl.conf
+   add this - net.ipv4.ip_forward=1
+-> sysctl -p
+-> ip route add default via 192.168.56.104 		// adding route
+-> cat /etc/resolv.conf
+-> vi /etc/sysconfig/network-scripts/ifcfg-enp0s3	// making persistent gateway
+   GATEWAY=192.168.56.104
+
+------------------------------------------------------------------------------------------
+
+###############
+## FIREWALLD ##
+###############
+
+-> firewall-cmd --state
+-> systemctl start firewalld
+-> firewall-cmd --get-default-zone
+-> firewall-cmd --get-active-zones
+-> firewall-cmd --get-zones
+-> firewall-cmd --list-all
+-> firewall-cmd --remove-service=ssh --permanent
+-> firewall-cmd --reload
+-> ls /usr/lib/firewalld/services
+
+* adding services will create filename of that service (creating own services)
+-> firewall-cmd --permanent --new-service="puppet"
+-> cd /etc/firewalld/services
+-> ls
+-> restorecon puppet.xml
+-> chmod 640 puppet.xml
+-> vi puppet.xml
+	<service>
+	<short>Puppet</short>
+	<port protocol="tcp" port="443"/>
+	<port protocol="tcp" port="8140"/>
+	</service>
+-> firewall-cmd --permanent --add-service=puppet --zone=internal
+-> firewall-cmd --reload
+
+-> if ping didnt work means it get stuck
+-> firewall-cmd --list-all
+-> firewall-cmd --permanent --add-masquerade
+-> firewall-cmd --reload
+
+* to get more info see manual
+
+------------------------------------------------------------------------------------------------------
+
+-> ip a s
+-> tracepath www.amazon.com
+-> ip -4 a s				// to check ip version 4 IPv4
+-> ip -6 a s				// to check ip version 6 IPv6
+-> ip link show				// to check mac address
+-> ip link show enp0s3
+-> ip -s link show enp0s3		// to show the statistics of enp0s3 card
+-> ip -s link show			// to show the statistics of all network
+-> netstat -tnlp			// checking the tcp ports services
+-> netstat -i 				// to list interfaces
+-> netstat -s
+
+-> sar -n DEV
+-> sar -n DEV 1 1			// real time monitoring with 1 sec gap and capture 1 packet
+-> sar -n DEV 1 3			// real time monitoring with 1 sec gap and capture 3 packet
+
+-> namp --iflist			// list all ip, route tables, 
+
+
+
+
+
+
